@@ -1,0 +1,120 @@
+import QtQuick 2.0
+import Sailfish.Silica 1.0
+
+Dialog {
+    objectName: "dialogContact"
+    allowedOrientations: Orientation.All
+
+    property alias contactFNAme: tfContactFName.text
+    property alias contactMNAme: tfContactMName.text
+    property alias contactLNAme: tfContactLName.text
+    //property alias contactAlias: cbContactAias.text
+    property alias contactFNAme: tfContactFName.text
+    property alias contactFNAme: tfContactFName.text
+
+    DialogHeader {
+        acceptText: qsTr("Сохранить")
+        cancelText: qsTr("Отменить")
+    }
+
+    Column {
+        anchors.centerIn: parent
+        width: parent.width
+
+        TextField {
+            id: tfContactFName
+            width: parent.width
+            placeholderText: qsTr("Фамилия")
+            label: qsTr("фамилия")
+            inputMethodHints: Qt.ImhUrlCharactersOnly
+            //            EnterKey.onClicked: textArea.focus = true
+        }
+
+        TextField {
+            id: tfContactLName
+            width: parent.width
+            placeholderText: qsTr("Имя")
+            label: qsTr("имя")
+            inputMethodHints: Qt.ImhUrlCharactersOnly
+            //            EnterKey.onClicked: textArea.focus = true
+        }
+
+        TextField {
+            id: tfContactMName
+            width: parent.width
+            placeholderText: qsTr("Отчество")
+            label: qsTr("отчество")
+            inputMethodHints: Qt.ImhUrlCharactersOnly
+            //            EnterKey.onClicked: textArea.focus = true
+        }
+
+        ComboBox {
+            id: cbContactAias
+            width: parent.width
+            label: "обращение"
+
+            menu: ContextMenu {
+                MenuItem {
+                    text: ""
+                }
+                MenuItem {
+                    text: "г-н"
+                }
+                MenuItem {
+                    text: "г-жа"
+                }
+                MenuItem {
+                    text: "тщ"
+                }
+            }
+        }
+
+        TextField {
+            id: tfContactPhoneNumber
+            width: parent.width
+            placeholderText: qsTr("Номер телефона")
+            label: qsTr("номер телефона")
+            inputMethodHints: Qt.ImhFormattedNumbersOnly
+            validator: RegExpValidator {
+                regExp: /^(\+7|8)[0-9]{10}$/
+            }
+            EnterKey.enabled: !errorHighlight
+            EnterKey.iconSource: "image://theme/icon-m-enter-next"
+            EnterKey.onClicked: textArea.focus = true
+        }
+
+        TextField {
+            id: tfContactMail
+            width: parent.width
+            placeholderText: qsTr("Эл. почта")
+            label: qsTr("эл. почта")
+            inputMethodHints: Qt.ImhFormattedNumbersOnly
+            validator: RegExpValidator {
+                regExp: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            }
+            EnterKey.enabled: !errorHighlight
+            EnterKey.iconSource: "image://theme/icon-m-enter-next"
+            EnterKey.onClicked: textArea.focus = true
+        }
+
+        Button {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr("Сохранить")
+            onClicked: {
+                pageStack.push(Qt.resolvedUrl("AccountPage.qml"), {
+                                   "_PhoneNumber": tfPhoneNumber.text,
+                                   "_Login": tfLogin.text
+                               })
+            }
+        }
+
+        Button {
+            anchors.horizontalCenter: parent.horizontalCenter
+            enabled: pageStack.depth > 1
+            text: qsTr("Вернуться")
+            onClicked: {
+                onClicked: pageStack.pop()
+            }
+        }
+    }
+}

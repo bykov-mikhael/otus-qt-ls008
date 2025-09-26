@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=ru.contactlist.hw008
+Exec=/usr/bin/ru.contactlist.hw008
+Name=Contact List Application
+Name[ru]=Список контактов
+
+[X-Application]
+Permissions=
+OrganizationName=ru.contactlist
+ApplicationName=hw008
+ExecDBus=/usr/bin/ru.contactlist.hw008

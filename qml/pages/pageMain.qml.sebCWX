@@ -1,0 +1,110 @@
+import QtQuick 2.0
+import Sailfish.Silica 1.0
+import Aurora.Controls 1.0
+
+Page {
+    objectName: "mainPage"
+    allowedOrientations: Orientation.All
+
+    // --> Кнопки управления записями
+    AppBar {
+        id: bar
+        headerText: qsTr("Контакты")
+
+        AppBarSpacer {}
+        // --> Кнопка "Добавить"
+        AppBarButton {
+            context: "Добавить"
+            icon.source: "image://theme/icon-m-add"
+
+            onClicked: {
+                var dialog = pageStack.push(Qt.resolvedUrl(
+                                                "../dialogs/dialogContact.qml"))
+                dialog.accepted.connect(function () {
+                    contactModel.append({
+                                            lContactFName: dialog.сontactFName,
+                                            lContactMName: dialog.сontactMName
+                                        })
+                    console.log(dialog.сontactMName)
+                })
+            }
+        }
+    }
+
+    // --> Список контактов
+    SilicaListView {
+        anchors.top: bar.bottom
+        anchors.bottom: parent.bottom
+        width: parent.width
+
+        model: ListModel {
+            id: contactModel
+        }
+
+        delegate: ListItem {
+
+            Label {
+                //                    id: lContactFName
+                anchors.horizontalCenter: parent.horizontalCenter
+                x: Theme.horizontalPageMargin
+                color: highlighted ? Theme.highlightColor : Theme.primaryColor
+                text: lContactFName + " " + lContactMName
+            }
+
+//            Column {
+//                anchors.centerIn: parent
+//                width: parent.width
+
+//                Label {
+//                    //                    id: lContactFName
+//                    anchors.horizontalCenter: parent.horizontalCenter
+//                    x: Theme.horizontalPageMargin
+//                    color: highlighted ? Theme.highlightColor : Theme.primaryColor
+//                    text: lContactFName
+//                }
+
+//                Label {
+////                    anchors.verticalCenter: parent.verticalCenter
+//                    x: Theme.horizontalPageMargin
+//                    color: highlighted ? Theme.highlightColor : Theme.primaryColor
+//                    text: lContactMName
+//                }
+
+//                Label {
+//                    id: lContactLName
+////                    anchors.verticalCenter: parent.verticalCenter
+//                    x: Theme.horizontalPageMargin
+//                    color: highlighted ? Theme.highlightColor : Theme.primaryColor
+//                    text: _ContactLName
+//                }
+
+//                Label {
+//                    id: lContactAlias
+//                    anchors.verticalCenter: parent.verticalCenter
+//                    x: Theme.horizontalPageMargin
+//                    color: highlighted ? Theme.highlightColor : Theme.primaryColor
+//                    text: _ContactAlias
+//                }
+
+//                Label {
+//                    id: lContactPhoneNumber
+//                    anchors.verticalCenter: parent.verticalCenter
+//                    x: Theme.horizontalPageMargin
+//                    color: highlighted ? Theme.highlightColor : Theme.primaryColor
+//                    text: _ContactPhoneNumber
+//                }
+
+//                Label {
+//                    id: lContactMail
+//                    anchors.verticalCenter: parent.verticalCenter
+//                    x: Theme.horizontalPageMargin
+//                    color: highlighted ? Theme.highlightColor : Theme.primaryColor
+//                    text: _ContactMail
+//                }
+//            }
+
+            //            model: 100
+//            VerticalScrollDecorator {}
+        }
+    }
+}
